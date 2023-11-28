@@ -1,6 +1,6 @@
 'use client';
-import React from 'react'
-import { Button, TextArea, TextField } from '@radix-ui/themes'
+import React, { useState } from 'react'
+import { Button, TextArea, TextField, Callout } from '@radix-ui/themes'
 import {useForm} from 'react-hook-form'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -13,15 +13,28 @@ interface trackerForm {
 const newTrackerPage = () => {
   const router = useRouter();
   const {register, handleSubmit} = useForm<trackerForm>();
+  const [error, setError] = useState('');
 
   return (
-    <form className='max-w-xl space-y-3' onSubmit={handleSubmit(async (data)=>{await axios.post('/api/tracker', data); router.push('/tracker')})}>
+    <div className='max-w-xl'>
+      {error && <Callout.Root color='red' className='mb-5'>
+        <Callout.Text>{error}</Callout.Text>
+      </Callout.Root>}
+    <form className=' space-y-3' onSubmit={handleSubmit(async (data)=>{
+      try {
+        await axios.post('/api/tracker', data); 
+        router.push('/tracker');
+      } catch (error) {
+        setError('An unexpected error has occured');
+      }
+      })}>
       <TextField.Root>
         <TextField.Input placeholder='Title' {...register('title')}/>
       </TextField.Root>
       <TextArea placeholder='Description'{...register('description')}/>
       <Button>Add New Tracker</Button>
     </form>
+    </div>
   )
 }
 

@@ -10,7 +10,7 @@ const NavBar = () => {
 
   const links = [
     {label: 'Home', href: '/'},
-    {label: 'Progress', href: '/track'},
+    {label: 'Progress', href: '/tracker'},
   ]
     const currentPath = usePathname();
   return (

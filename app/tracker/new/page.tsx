@@ -16,7 +16,7 @@ const newTrackerPage = () => {
   const [error, setError] = useState('');
 
   return (
-    <div className='max-w-xl'>
+    <div className='max-w-xl justify-center'>
       {error && <Callout.Root color='red' className='mb-5'>
         <Callout.Text>{error}</Callout.Text>
       </Callout.Root>}
@@ -28,11 +28,11 @@ const newTrackerPage = () => {
         setError('An unexpected error has occured');
       }
       })}>
-      <TextField.Root>
+      <TextField.Root className=''>
         <TextField.Input placeholder='Title' {...register('title')}/>
       </TextField.Root>
       <TextArea placeholder='Description'{...register('description')}/>
-      <Button>Add New Tracker</Button>
+      <Button className=''>Add New Tracker</Button>
     </form>
     </div>
   )

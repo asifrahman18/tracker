@@ -14,8 +14,8 @@ const NavBar = () => {
   ]
     const currentPath = usePathname();
   return (
-    <nav className='flex space-x-6 border-b mb-6 px-5 h-14 items-cente'>
-        <Link href='/'><GiProgression /></Link>
+    <nav className='flex space-x-6 border-b mb-6 px-5 h-14 items-center justify-center bg-violet-900/75'>
+        <Link href='/'><GiProgression/></Link>
         <ul className='flex space-x-6 text-xl items-center'>
           {links.map((link, i) => (
             <li key={i}>

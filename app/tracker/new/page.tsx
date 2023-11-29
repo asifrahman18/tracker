@@ -1,18 +1,23 @@
 'use client';
 import React, { useState } from 'react'
-import { Button, TextArea, TextField, Callout } from '@radix-ui/themes'
+import { Button, TextArea, TextField, Callout, Text } from '@radix-ui/themes'
 import {useForm} from 'react-hook-form'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createTrackerSchema } from '@/app/validationSchema';
+import {z} from 'zod';
+import ErrorMessage from '@/app/components/errorMessage';
 
-interface trackerForm {
-  title: string;
-  description: string;
-}
+
+type trackerForm = z.infer<typeof createTrackerSchema>
+
 
 const newTrackerPage = () => {
   const router = useRouter();
-  const {register, handleSubmit} = useForm<trackerForm>();
+  const {register, handleSubmit, formState:{errors}} = useForm<trackerForm>({
+    resolver: zodResolver(createTrackerSchema)
+  });
   const [error, setError] = useState('');
 
   return (
@@ -31,7 +36,9 @@ const newTrackerPage = () => {
       <TextField.Root className=''>
         <TextField.Input placeholder='Title' {...register('title')}/>
       </TextField.Root>
+      {<ErrorMessage>{errors.title?.message}</ErrorMessage>}
       <TextArea placeholder='Description'{...register('description')}/>
+      {<ErrorMessage>{errors.description?.message}</ErrorMessage>}
       <Button className=''>Add New Tracker</Button>
     </form>
     </div>

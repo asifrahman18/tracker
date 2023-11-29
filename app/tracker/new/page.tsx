@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { createTrackerSchema } from '@/app/validationSchema';
 import {z} from 'zod';
 import ErrorMessage from '@/app/components/errorMessage';
+import Spinner from '@/app/components/spinner';
 
 
 type trackerForm = z.infer<typeof createTrackerSchema>
@@ -19,6 +20,7 @@ const newTrackerPage = () => {
     resolver: zodResolver(createTrackerSchema)
   });
   const [error, setError] = useState('');
+  const [isSubmitting, setSubmitting] = useState(false)
 
   return (
     <div className='max-w-xl justify-center'>
@@ -27,9 +29,11 @@ const newTrackerPage = () => {
       </Callout.Root>}
     <form className=' space-y-3' onSubmit={handleSubmit(async (data)=>{
       try {
+        setSubmitting(true)
         await axios.post('/api/tracker', data); 
         router.push('/tracker');
       } catch (error) {
+        setSubmitting(false)
         setError('An unexpected error has occured');
       }
       })}>
@@ -39,7 +43,7 @@ const newTrackerPage = () => {
       {<ErrorMessage>{errors.title?.message}</ErrorMessage>}
       <TextArea placeholder='Description'{...register('description')}/>
       {<ErrorMessage>{errors.description?.message}</ErrorMessage>}
-      <Button className=''>Add New Tracker</Button>
+      <Button disabled={isSubmitting}>Add New Tracker {isSubmitting && <Spinner/>} </Button>
     </form>
     </div>
   )

@@ -10,18 +10,18 @@ const NavBar = () => {
 
   const links = [
     {label: 'Home', href: '/'},
-    {label: 'Progress', href: '/tracker'},
+    {label: 'Tasks', href: '/tracker'},
   ]
     const currentPath = usePathname();
   return (
-    <nav className='flex space-x-6 border-b mb-6 px-5 h-14 items-center justify-center bg-violet-900/75'>
+    <nav className='flex space-x-6 border-b mb-6 px-5 h-14 items-center justify-center bg-cyan-500'>
         <Link href='/'><GiProgression size={30} style={{color: 'white'}}/></Link>
         <ul className='flex space-x-6 text-xl items-center'>
           {links.map((link, i) => (
             <li key={i}>
               <Link className={classNames({
-                'text-zinc-500': link.href !== currentPath,
-                'text-white': link.href=== currentPath,
+                'text-white': link.href !== currentPath,
+                'text-black': link.href=== currentPath,
                 'hover:text-white transition-colors': true,
               })} href={link.href}>{link.label}</Link>
             </li>

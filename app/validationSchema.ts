@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const createTrackerSchema = z.object({
+export const TaskSchema = z.object({
     title: z.string().min(1).max(255),
     description: z.string().min(1),
 });

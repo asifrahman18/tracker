@@ -5,13 +5,13 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createTrackerSchema } from "@/app/validationSchema";
+import { TaskSchema } from "@/app/validationSchema";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/errorMessage";
 import Spinner from "@/app/components/spinner";
 import { Tracker } from "@prisma/client";
 
-type trackerForm = z.infer<typeof createTrackerSchema>;
+type trackerForm = z.infer<typeof TaskSchema>;
 
 const TaskForm = ({ task }: { task?: Tracker }) => {
   const router = useRouter();
@@ -20,7 +20,7 @@ const TaskForm = ({ task }: { task?: Tracker }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<trackerForm>({
-    resolver: zodResolver(createTrackerSchema),
+    resolver: zodResolver(TaskSchema),
   });
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
@@ -37,7 +37,8 @@ const TaskForm = ({ task }: { task?: Tracker }) => {
         onSubmit={handleSubmit(async (data) => {
           try {
             setSubmitting(true);
-            await axios.post("/api/tracker", data);
+            if (task) await axios.patch("/api/tracker/" + task.id, data);
+            else await axios.post("/api/tracker", data);
             router.push("/tracker");
           } catch (error) {
             setSubmitting(false);
@@ -46,13 +47,21 @@ const TaskForm = ({ task }: { task?: Tracker }) => {
         })}
       >
         <TextField.Root className="">
-          <TextField.Input defaultValue={task?.title} placeholder="Title" {...register("title")} />
+          <TextField.Input
+            defaultValue={task?.title}
+            placeholder="Title"
+            {...register("title")}
+          />
         </TextField.Root>
         {<ErrorMessage>{errors.title?.message}</ErrorMessage>}
-        <TextArea defaultValue={task?.description} placeholder="Description" {...register("description")} />
+        <TextArea
+          defaultValue={task?.description}
+          placeholder="Description"
+          {...register("description")}
+        />
         {<ErrorMessage>{errors.description?.message}</ErrorMessage>}
         <Button disabled={isSubmitting}>
-          Add New Tracker {isSubmitting && <Spinner />}{" "}
+          {task ? "Update Task" : "Add New Task"}{' '} {isSubmitting && <Spinner />}{" "}
         </Button>
       </form>
     </div>

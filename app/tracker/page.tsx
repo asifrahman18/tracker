@@ -4,6 +4,7 @@ import newTrackerPage from './new/page'
 import Link from 'next/link'
 import prisma from '@/prisma/client'
 import TaskStatusBadge from '../components/taskStatusBadge'
+import ButtonTracker from '../components/button'
 
 const TrackerPage = async () => {
 
@@ -11,7 +12,7 @@ const TrackerPage = async () => {
   return (
     <div>
       <div className='mb-5'>
-      <Button><Link href='/tracker/new/'>Add New Task</Link></Button>
+      <ButtonTracker/>
       </div>
       <Table.Root variant='surface'>
         <Table.Header>
@@ -25,7 +26,9 @@ const TrackerPage = async () => {
           {tracker.map(trackers=> (
             <Table.Row key={trackers.id}>
               <Table.Cell>
+                <Link href={`./tracker/${trackers.id}`}>
                 {trackers.title}
+                </Link>
                 <div className='block md:hidden'><TaskStatusBadge status={trackers.status}/></div>
                 </Table.Cell>
               <Table.Cell className='hidden md:table-cell'> <TaskStatusBadge status={trackers.status}/></Table.Cell>

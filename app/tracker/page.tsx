@@ -26,7 +26,7 @@ const TrackerPage = async () => {
           {tracker.map(trackers=> (
             <Table.Row key={trackers.id}>
               <Table.Cell>
-                <Link href={`./tracker/${trackers.id}`}>
+                <Link href={`./tracker/${trackers.id}`} className='text-blue hover:underline'>
                 {trackers.title}
                 </Link>
                 <div className='block md:hidden'><TaskStatusBadge status={trackers.status}/></div>

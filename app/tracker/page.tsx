@@ -1,12 +1,10 @@
-import React from 'react'
-import { Button, Table } from '@radix-ui/themes'
-import newTrackerPage from './new/page'
-import Link from 'next/link'
 import prisma from '@/prisma/client'
-import TaskStatusBadge from '../components/taskStatusBadge'
+import { AlertDialog, Button, Flex, Table } from '@radix-ui/themes'
+import Link from 'next/link'
+import { IoMdDoneAll } from "react-icons/io"
 import ButtonTracker from '../components/button'
-import { IoMdDoneAll } from "react-icons/io";
-import { MdDeleteForever } from "react-icons/md";
+import TaskStatusBadge from '../components/taskStatusBadge'
+import DeleteMessage from '../components/deleteModal'
 
 const TrackerPage = async () => {
 
@@ -38,7 +36,7 @@ const TrackerPage = async () => {
               <Table.Cell className='hidden md:table-cell'> <TaskStatusBadge status={trackers.status}/></Table.Cell>
               <Table.Cell className='hidden md:table-cell'>{trackers.created.toDateString()}</Table.Cell>
               <Table.Cell className='hidden md:table-cell'> <Button color='green'><IoMdDoneAll style={{color: 'white'}} size={20}/></Button></Table.Cell>
-              <Table.Cell className='hidden md:table-cell'><Button color='red'><MdDeleteForever style={{color: 'white'}} size={20}/></Button> </Table.Cell>
+              <Table.Cell className='hidden md:table-cell'><Button color='red'><DeleteMessage/></Button> </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

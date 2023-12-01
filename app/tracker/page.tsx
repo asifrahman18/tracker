@@ -5,6 +5,8 @@ import Link from 'next/link'
 import prisma from '@/prisma/client'
 import TaskStatusBadge from '../components/taskStatusBadge'
 import ButtonTracker from '../components/button'
+import { IoMdDoneAll } from "react-icons/io";
+import { MdDeleteForever } from "react-icons/md";
 
 const TrackerPage = async () => {
 
@@ -20,19 +22,23 @@ const TrackerPage = async () => {
             <Table.ColumnHeaderCell>Task</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className='hidden md:table-cell'>Status</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className='hidden md:table-cell'>Created At</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell className='hidden md:table-cell'>Mark As Complete</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell className='hidden md:table-cell'>Delete</Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {tracker.map(trackers=> (
             <Table.Row key={trackers.id}>
               <Table.Cell>
-                <Link href={`./tracker/${trackers.id}`} className='text-blue hover:underline'>
+                <Link href={`./tracker/${trackers.id}`} className='text-blue-950 hover:underline'>
                 {trackers.title}
                 </Link>
                 <div className='block md:hidden'><TaskStatusBadge status={trackers.status}/></div>
                 </Table.Cell>
               <Table.Cell className='hidden md:table-cell'> <TaskStatusBadge status={trackers.status}/></Table.Cell>
               <Table.Cell className='hidden md:table-cell'>{trackers.created.toDateString()}</Table.Cell>
+              <Table.Cell className='hidden md:table-cell'> <Button color='green'><IoMdDoneAll style={{color: 'white'}} size={20}/></Button></Table.Cell>
+              <Table.Cell className='hidden md:table-cell'><Button color='red'><MdDeleteForever style={{color: 'white'}} size={20}/></Button> </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -40,5 +46,7 @@ const TrackerPage = async () => {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic';
 
 export default TrackerPage

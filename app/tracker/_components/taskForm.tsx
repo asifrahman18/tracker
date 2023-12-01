@@ -40,6 +40,7 @@ const TaskForm = ({ task }: { task?: Tracker }) => {
             if (task) await axios.patch("/api/tracker/" + task.id, data);
             else await axios.post("/api/tracker", data);
             router.push("/tracker");
+            router.refresh();
           } catch (error) {
             setSubmitting(false);
             setError("An unexpected error has occured");

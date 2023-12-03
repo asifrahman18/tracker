@@ -56,7 +56,7 @@ const TrackerPage = async () => {
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 {" "}
-                <CompleteButton trackerId={trackers.id} status = {true} />
+                <CompleteButton trackerId={trackers.id} status = {trackers.status} />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 <Button color="red">

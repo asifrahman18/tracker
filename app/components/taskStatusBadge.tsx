@@ -15,7 +15,7 @@ const TaskStatusBadge = ({status}: taskStatus) => {
 
     if (status === 'CLOSED')
     return (
-        <Badge color='green'>Closed</Badge>)
+        <Badge color='green'>Complete</Badge>)
 }
 
 export default TaskStatusBadge

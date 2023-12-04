@@ -7,6 +7,7 @@ import TaskStatusBadge from "../components/taskStatusBadge";
 import CompleteButton from "./[id]/completeButton";
 import DeleteButton from "./[id]/deleteButton";
 import EditTaskButton from "./[id]/editTaskPage";
+import { Metadata } from "next";
 
 const TrackerPage = async () => {
 
@@ -80,3 +81,8 @@ const TrackerPage = async () => {
 export const dynamic = "force-dynamic";
 
 export default TrackerPage;
+
+export const metadata: Metadata ={
+  title: 'Task List',
+  description: 'See all your tasks'
+}

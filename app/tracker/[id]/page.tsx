@@ -5,6 +5,7 @@ import EditTaskButton from "./editTaskPage";
 import TaskDetails from "./taskDetails";
 import CompleteButton from "./completeButton";
 import DeleteButton from "./deleteButton";
+import { Metadata } from "next";
 
 interface props {
   params: { id: string };
@@ -36,3 +37,8 @@ const TrackerDetailsPage = async ({ params }: props) => {
 };
 
 export default TrackerDetailsPage;
+
+export const metadata: Metadata ={
+  title: 'Task details',
+  description: 'See your tasks in details'
+}

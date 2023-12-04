@@ -10,7 +10,7 @@ const DeleteButton = ({trackerId}: {trackerId: number}) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <MdDeleteForever size={20} />
+        <Button color="red"><MdDeleteForever size={20} /></Button>
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>Confrim Delete</AlertDialog.Title>

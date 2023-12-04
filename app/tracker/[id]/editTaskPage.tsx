@@ -5,13 +5,11 @@ import { MdEditNote } from "react-icons/md";
 
 const EditTaskButton = ({ trackerID }: { trackerID: number }) => {
   return (
-    <div>
       <Button>
         <Link href={`/tracker/${trackerID}/edit`}>
           <MdEditNote size={25} style={{ color: "white" }} />
         </Link>
       </Button>
-    </div>
   );
 };
 

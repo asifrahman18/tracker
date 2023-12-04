@@ -6,6 +6,7 @@ import ButtonTracker from "../components/button";
 import TaskStatusBadge from "../components/taskStatusBadge";
 import CompleteButton from "./[id]/completeButton";
 import DeleteButton from "./[id]/deleteButton";
+import EditTaskButton from "./[id]/editTaskPage";
 
 const TrackerPage = async () => {
 
@@ -25,8 +26,11 @@ const TrackerPage = async () => {
             <Table.ColumnHeaderCell className="hidden md:table-cell">
               Created At
             </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
+            <Table.ColumnHeaderCell className="md:table-cell items-center">
               Mark As Complete
+            </Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell className="hidden md:table-cell">
+              Edit
             </Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
               Delete
@@ -54,14 +58,16 @@ const TrackerPage = async () => {
               <Table.Cell className="hidden md:table-cell">
                 {trackers.created.toDateString()}
               </Table.Cell>
-              <Table.Cell className="hidden md:table-cell">
+              <Table.Cell className="md:table-cell">
                 {" "}
                 <CompleteButton trackerId={trackers.id} status = {trackers.status} />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <Button color="red">
-                  <DeleteButton trackerId={trackers.id} />
-                </Button>{" "}
+                {" "}
+                <EditTaskButton trackerID={trackers.id} />
+              </Table.Cell>
+              <Table.Cell className="hidden md:table-cell">
+                  <DeleteButton trackerId={trackers.id} />{" "}
               </Table.Cell>
             </Table.Row>
           ))}
